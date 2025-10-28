@@ -5,14 +5,14 @@ suite('Unit Tests', function () {
   suite('Basic Assertions', function () {
     // #1
     test('#isNull, #isNotNull', function () {
-      assert.isNull(null, 'null is null');     
-      assert.isNotNull(1, '1 is not null');     
+      assert.isNull(null);     
+      assert.isNotNull(1);     
     });
     // #2
     test('#isDefined, #isUndefined', function () {
-      assert.isDefined(null, 'null is defined');    
-      assert.isUndefined(undefined, 'undefined is undefined'); 
-      assert.isDefined('hello', 'a string is defined');     
+      assert.isDefined(null);    
+      assert.isUndefined(undefined); 
+      assert.isDefined('hello');     
     });
     // #3
     test('#isOk, #isNotOk', function () {
