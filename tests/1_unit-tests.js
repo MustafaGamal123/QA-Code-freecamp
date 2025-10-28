@@ -1,27 +1,27 @@
 const chai = require('chai');
 const assert = chai.assert;
 
-describe('Unit its', function () {
-  describe('Basic Assertions', function () {
+suite('Unit Tests', function () {
+  suite('Basic Assertions', function () {
     // #1
-    it('#isNull, #isNotNull', function () {
-      assert.isNull(null);     
-      assert.isNotNull(1);     
+    test('#isNull, #isNotNull', function () {
+      assert.isNull(null, 'null is null');     
+      assert.isNotNull(1, '1 is not null');     
     });
     // #2
-    it('#isDefined, #isUndefined', function () {
-      assert.isDefined(null);    
-      assert.isUndefined(undefined); 
-      assert.isDefined('hello');     
+    test('#isDefined, #isUndefined', function () {
+      assert.isDefined(null, 'null is defined');    
+      assert.isUndefined(undefined, 'undefined is undefined'); 
+      assert.isDefined('hello', 'a string is defined');     
     });
     // #3
-    it('#isOk, #isNotOk', function () {
+    test('#isOk, #isNotOk', function () {
       assert.isNotOk(null, 'null is falsey');
       assert.isOk("I'm truthy", 'A string is truthy');
       assert.isOk(true, 'true is truthy');
     });
     // #4
-    it('#isTrue, #isNotTrue', function () {
+    test('#isTrue, #isNotTrue', function () {
       assert.isTrue(true, 'true is true');
       assert.isTrue(!!'double negation', 'Double negation of a truthy value is true');
       assert.isNotTrue({ value: 'truthy' }, 'Objects are truthy, but are not boolean values');
@@ -30,23 +30,23 @@ describe('Unit its', function () {
 
   // -----------------------------------------------------------------------------
 
-  describe('Equality', function () {
+  suite('Equality', function () {
     // #5
-    it('#equal, #notEqual', function () {
+    test('#equal, #notEqual', function () {
       assert.equal(12, '12', 'Numbers are coerced into strings with ==');
       assert.notEqual({ value: 1 }, { value: 1 }, '== compares object references');
       assert.equal(6 * '2', '12');
       assert.notEqual(6 + '2', '12');
     });
     // #6
-    it('#strictEqual, #notStrictEqual', function () {
+    test('#strictEqual, #notStrictEqual', function () {
       assert.notStrictEqual(6, '6');
       assert.strictEqual(6, 3 * 2);
       assert.strictEqual(6 * '2', 12);
       assert.notStrictEqual([1, 'a', {}], [1, 'a', {}]);
     });
     // #7
-    it('#deepEqual, #notDeepEqual', function () {
+    test('#deepEqual, #notDeepEqual', function () {
       assert.deepEqual({ a: '1', b: 5 }, { b: 5, a: '1' }, "The order of keys doesn't matter");
       assert.notDeepEqual({ a: [5, 6] }, { a: [6, 5] }, 'The order of array elements does matter');
     });
@@ -58,25 +58,25 @@ describe('Unit its', function () {
     return 1 + delta - Math.random();
   }
 
-  describe('Comparisons', function () {
+  suite('Comparisons', function () {
     // #8
-    it('#isAbove, #isAtMost', function () {
+    test('#isAbove, #isAtMost', function () {
       assert.isAtMost('hello'.length, 5);
       assert.isAbove(1, 0);
       assert.isAbove(Math.PI, 3);
       assert.isAtMost(1 - Math.random(), 1);
     });
     // #9
-    it('#isBelow, #isAtLeast', function () {
+    test('#isBelow, #isAtLeast', function () {
       assert.isAtLeast('world'.length, 5);
       assert.isAtLeast(2 * Math.random(), 0);
       assert.isBelow(5 % 2, 2);
       assert.isBelow(2 / 3, 1);
     });
     // #10
-    it('#approximately', function () {
-    assert.approximately(weirdNumbers(0.5), 1, 1);
-    assert.approximately(weirdNumbers(0.2), 1, 1);
+    test('#approximately', function () {
+      assert.approximately(weirdNumbers(0.5), 1, 0.5);
+      assert.approximately(weirdNumbers(0.2), 1, 0.5);
     });
   });
 
@@ -84,14 +84,14 @@ describe('Unit its', function () {
 
   const winterMonths = ['dec,', 'jan', 'feb', 'mar'];
   const backendLanguages = ['php', 'python', 'javascript', 'ruby', 'asp'];
-  describe('Arrays', function () {
+  suite('Arrays', function () {
     // #11
-    it('#isArray, #isNotArray', function () {
+    test('#isArray, #isNotArray', function () {
       assert.isArray('isThisAnArray?'.split(''), 'String.prototype.split() returns an array');
       assert.isNotArray([1, 2, 3].indexOf(2), 'indexOf returns a number');
     });
     // #12
-    it('Array #include, #notInclude', function () {
+    test('Array #include, #notInclude', function () {
       assert.notInclude(winterMonths, 'jul', "It's summer in july...");
       assert.include(backendLanguages, 'javascript', 'JS is a backend language');
     });
@@ -102,20 +102,20 @@ describe('Unit its', function () {
   const formatPeople = function (name, age) {
     return '# name: ' + name + ', age: ' + age + '\n';
   };
-  describe('Strings', function () {
+  suite('Strings', function () {
     // #13
-    it('#isString, #isNotString', function () {
+    test('#isString, #isNotString', function () {
       assert.isNotString(Math.sin(Math.PI / 4), 'A float is not a string');
       assert.isString(process.env.PATH, 'An env variable is a string (or undefined)');
       assert.isString(JSON.stringify({ type: 'object' }), 'JSON is a string');
     });
     // #14
-    it('String #include, #notInclude', function () {
+    test('String #include, #notInclude', function () {
       assert.include('Arrow', 'row', "'Arrow' contains 'row'");
       assert.notInclude('dart', 'queue', "But 'dart' doesn't contain 'queue'");
     });
     // #15
-    it('#match, #notMatch', function () {
+    test('#match, #notMatch', function () {
       const regex = /^#\sname\:\s[\w\s]+,\sage\:\s\d+\s?$/;
       assert.match(formatPeople('John Doe', 35), regex);
       assert.notMatch(formatPeople('Paul Smith III', 'twenty-four'), regex);
@@ -140,15 +140,15 @@ describe('Unit its', function () {
   const myCar = new Car();
   const airlinePlane = new Plane();
 
-  describe('Objects', function () {
+  suite('Objects', function () {
     // #16
-    it('#property, #notProperty', function () {
+    test('#property, #notProperty', function () {
       assert.notProperty(myCar, 'wings', "Cars don't have wings");
       assert.property(airlinePlane, 'engines', 'Planes have engines');
       assert.property(myCar, 'wheels', 'Cars have wheels');
     });
     // #17
-    it('#typeOf, #notTypeOf', function () {
+    test('#typeOf, #notTypeOf', function () {
       assert.typeOf(myCar, 'object');
       assert.typeOf(myCar.model, 'string');
       assert.notTypeOf(airlinePlane.wings, 'string');
@@ -156,7 +156,7 @@ describe('Unit its', function () {
       assert.typeOf(myCar.wheels, 'number');
     });
     // #18
-    it('#instanceOf, #notInstanceOf', function () {
+    test('#instanceOf, #notInstanceOf', function () {
       assert.notInstanceOf(myCar, Plane);
       assert.instanceOf(airlinePlane, Plane);
       assert.instanceOf(airlinePlane, Object);
